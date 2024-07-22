@@ -2,20 +2,19 @@ import getpass
 import json
 import logging
 import os
+from pprint import pformat
 from shutil import rmtree
 from urllib import request
-from pprint import pformat
 
 
 class BrewAPIHandler:
-    """Homebrew API handler for casks
+    """Homebrew API handler for casks"""
 
-    """
     APP_FOLDER = "/Applications/"
     USER_FOLDER = "/Users/" + getpass.getuser()
 
     def __init__(self):
-        logging.basicConfig(level = logging.DEBUG)
+        logging.basicConfig(level=logging.DEBUG)
         self.logger = logging.getLogger("uninstall_by_brew")
 
     def get_files_to_remove(self, url: str) -> list[str]:
@@ -60,7 +59,9 @@ class BrewAPIHandler:
             - ValueError: A string was expected, got {type(agreement)}!
         """
         deleted: list[str] = []
-        self.logger.warning(f"The following packages will be deleted: \n{pformat(to_remove)}\n")
+        self.logger.warning(
+            f"The following packages will be deleted: \n{pformat(to_remove)}\n"
+        )
         agreement = input("[Y/n]: ")
         if not isinstance(agreement, str):
             raise ValueError(f"A string was expected, got {type(agreement)}!")
@@ -81,4 +82,3 @@ class BrewAPIHandler:
             else:
                 self.logger.exception("Unexpected.")
         return deleted
-
